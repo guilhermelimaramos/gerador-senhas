@@ -2,6 +2,85 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/modules/formGeraSenha.js":
+/*!**************************************!*\
+  !*** ./src/modules/formGeraSenha.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _geradores__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./geradores */ "./src/modules/geradores.js");
+
+var senhaGerada = document.querySelector('.pwd-gerada');
+var qtdCaracteres = document.querySelector('.qtd-caractres');
+var ckbMinusculas = document.querySelector('.ckb-minusculas');
+var ckbMaiusculas = document.querySelector('.ckb-maiusculas');
+var ckbNumeros = document.querySelector('.ckb-numeros');
+var ckbSimbolos = document.querySelector('.ckb-simbolos');
+var botao = document.querySelector('.botao-gerar');
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  botao.addEventListener('click', function () {
+    senhaGerada.innerHTML = gerar();
+  });
+});
+function gerar() {
+  var senha = (0,_geradores__WEBPACK_IMPORTED_MODULE_0__.geraSenha)(qtdCaracteres.value, ckbMaiusculas.checked, ckbMinusculas.checked, ckbNumeros.checked, ckbSimbolos.checked);
+  if (senha.slice(0, 9) == 'undefined') return 'Nada selecionado';
+  if (qtdCaracteres.value < 1) return 'Digite um número válido';
+  return senha;
+}
+
+/***/ }),
+
+/***/ "./src/modules/geradores.js":
+/*!**********************************!*\
+  !*** ./src/modules/geradores.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   geraCaracter: () => (/* binding */ geraCaracter),
+/* harmony export */   geraSenha: () => (/* binding */ geraSenha)
+/* harmony export */ });
+var rand = function rand(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+var geraMaiusc = function geraMaiusc() {
+  return String.fromCharCode(rand(65, 91));
+};
+var geraManusc = function geraManusc() {
+  return String.fromCharCode(rand(97, 123));
+};
+var geraNum = function geraNum() {
+  return String.fromCharCode(rand(48, 58));
+};
+var simbolos = '!@#$%&*(){}[]^~/+=-:;|/°';
+var geraSimbolo = function geraSimbolo() {
+  return simbolos[rand(0, simbolos.length)];
+};
+function geraCaracter(maiusc, minusc, num, simb) {
+  var geradores = [];
+  maiusc && geradores.push(geraMaiusc());
+  minusc && geradores.push(geraManusc());
+  num && geradores.push(geraNum());
+  simb && geradores.push(geraSimbolo());
+  var newCaracter = geradores[rand(0, geradores.length)];
+  return newCaracter;
+}
+function geraSenha(numCarac, maiusc, minusc, num, simb) {
+  var senha = '';
+  for (var i = 0; i < numCarac; i++) {
+    senha += geraCaracter(maiusc, minusc, num, simb);
+  }
+  return senha;
+}
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/assets/css/style.css":
 /*!************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/assets/css/style.css ***!
@@ -79,7 +158,27 @@ form button {
 form button:hover {
   background: var(--primary-color-darker);
 }
-`, "",{"version":3,"sources":["webpack://./src/assets/css/style.css"],"names":[],"mappings":"AACA;EACE,iCAAiC;EACjC,sCAAsC;AACxC;;AAEA;EACE,sBAAsB;EACtB,UAAU;AACZ;;AAEA;EACE,SAAS;EACT,UAAU;EACV,gCAAgC;EAChC,oCAAoC;EACpC,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,iBAAiB;EACjB,gBAAgB;EAChB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,cAAc;EACd,WAAW;EACX,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,uCAAuC;AACzC;;AAEA;EACE,YAAY;EACZ,gCAAgC;EAChC,WAAW;EACX,eAAe;EACf,gBAAgB;EAChB,YAAY;EACZ,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,uCAAuC;AACzC","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');\n:root {\n  --primary-color: rgb(17, 86, 102);\n  --primary-color-darker: rgb(9, 48, 56);\n}\n\n* {\n  box-sizing: border-box;\n  outline: 0;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background: var(--primary-color);\n  font-family: 'Open sans', sans-serif;\n  font-size: 1.3em;\n  line-height: 1.5em;\n}\n\n.container {\n  max-width: 640px;\n  margin: 50px auto;\n  background: #fff;\n  padding: 20px;\n  border-radius: 10px;\n}\n\nform input, form label, form button {\n  display: block;\n  width: 100%;\n  margin-bottom: 10px;\n}\n\nform input {\n  font-size: 24px;\n  height: 50px;\n  padding: 0 20px;\n}\n\nform input:focus {\n  outline: 1px solid var(--primary-color);\n}\n\nform button {\n  border: none;\n  background: var(--primary-color);\n  color: #fff;\n  font-size: 18px;\n  font-weight: 700;\n  height: 50px;\n  cursor: pointer;\n  margin-top: 30px;\n}\n\nform button:hover {\n  background: var(--primary-color-darker);\n}\n"],"sourceRoot":""}]);
+
+.pwd-gerada {
+  font-size: 1.4em;
+  color: var(--primary-color);
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.ckb {
+  height: 18px;
+  width: 18px;
+}
+
+button {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px;
+  font-size: 1em;
+  color: white;
+  height: 35px;
+}`, "",{"version":3,"sources":["webpack://./src/assets/css/style.css"],"names":[],"mappings":"AACA;EACE,iCAAiC;EACjC,sCAAsC;AACxC;;AAEA;EACE,sBAAsB;EACtB,UAAU;AACZ;;AAEA;EACE,SAAS;EACT,UAAU;EACV,gCAAgC;EAChC,oCAAoC;EACpC,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,iBAAiB;EACjB,gBAAgB;EAChB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,cAAc;EACd,WAAW;EACX,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,uCAAuC;AACzC;;AAEA;EACE,YAAY;EACZ,gCAAgC;EAChC,WAAW;EACX,eAAe;EACf,gBAAgB;EAChB,YAAY;EACZ,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,uCAAuC;AACzC;;AAEA;EACE,gBAAgB;EAChB,2BAA2B;EAC3B,mBAAmB;EACnB,iBAAiB;AACnB;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,sCAAsC;EACtC,kBAAkB;EAClB,uBAAuB;EACvB,cAAc;EACd,YAAY;EACZ,YAAY;AACd","sourcesContent":["@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');\n:root {\n  --primary-color: rgb(17, 86, 102);\n  --primary-color-darker: rgb(9, 48, 56);\n}\n\n* {\n  box-sizing: border-box;\n  outline: 0;\n}\n\nbody {\n  margin: 0;\n  padding: 0;\n  background: var(--primary-color);\n  font-family: 'Open sans', sans-serif;\n  font-size: 1.3em;\n  line-height: 1.5em;\n}\n\n.container {\n  max-width: 640px;\n  margin: 50px auto;\n  background: #fff;\n  padding: 20px;\n  border-radius: 10px;\n}\n\nform input, form label, form button {\n  display: block;\n  width: 100%;\n  margin-bottom: 10px;\n}\n\nform input {\n  font-size: 24px;\n  height: 50px;\n  padding: 0 20px;\n}\n\nform input:focus {\n  outline: 1px solid var(--primary-color);\n}\n\nform button {\n  border: none;\n  background: var(--primary-color);\n  color: #fff;\n  font-size: 18px;\n  font-weight: 700;\n  height: 50px;\n  cursor: pointer;\n  margin-top: 30px;\n}\n\nform button:hover {\n  background: var(--primary-color-darker);\n}\n\n.pwd-gerada {\n  font-size: 1.4em;\n  color: var(--primary-color);\n  letter-spacing: 3px;\n  font-weight: bold;\n}\n\n.ckb {\n  height: 18px;\n  width: 18px;\n}\n\nbutton {\n  background-color: var(--primary-color);\n  border-radius: 5px;\n  box-shadow: 1px 1px 1px;\n  font-size: 1em;\n  color: white;\n  height: 35px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -606,8 +705,11 @@ var __webpack_exports__ = {};
   !*** ./src/main.js ***!
   \*********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
+/* harmony import */ var _modules_formGeraSenha__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/formGeraSenha */ "./src/modules/formGeraSenha.js");
+/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
 
+
+(0,_modules_formGeraSenha__WEBPACK_IMPORTED_MODULE_0__["default"])();
 })();
 
 /******/ })()

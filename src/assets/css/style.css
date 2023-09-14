@@ -56,3 +56,24 @@ form button {
 form button:hover {
   background: var(--primary-color-darker);
 }
+
+.pwd-gerada {
+  font-size: 1.4em;
+  color: var(--primary-color);
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.ckb {
+  height: 18px;
+  width: 18px;
+}
+
+button {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px;
+  font-size: 1em;
+  color: white;
+  height: 35px;
+}
